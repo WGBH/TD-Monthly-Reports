@@ -1,0 +1,5 @@
+mysql -pbL1t3eN -u admin td_analytics < asset_views.sql > OUT/usage_201111.tsv
+mysql -pbL1t3eN -u admin td_analytics < download.sql >> OUT/usage_201111.tsv
+mysql -pbL1t3eN -u admin td_analytics < page_hits.sql >> OUT/usage_201111.tsv
+mysql -pbL1t3eN -u admin td_analytics < resource_views.sql >> OUT/usage_201111.tsv
+

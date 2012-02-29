@@ -1,0 +1,20 @@
+Dear Bob:
+
+If you get an error like this:
+
+ERROR 126 (HY000) at line 2: Incorrect key file for table '#sql_fa2_0.MYI'; try to repair it
+
+
+the problem might be that you haven't get enough rows in the
+td_analytics.metrics_month_id_range table.
+
+To wit: you're trying to process rows from April when the table only 
+goes to March.
+
+Solution:  make sure the table encompasses the entire range of dates 
+that are (now) in td_analytics.metrics_page_hits.
+
+Sincerely,
+Bob  :-)
+
+

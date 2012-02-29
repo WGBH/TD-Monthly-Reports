@@ -1,0 +1,5 @@
+mysql -pbL1t3eN -u root td_now < reg_us.sql > OUT/reg_all.tsv
+mysql -pbL1t3eN -u root td_now < reg_world.sql >> OUT/reg_all.tsv
+mysql -pbL1t3eN -u root td_now < reg_state.sql >> OUT/reg_all.tsv
+mysql -pbL1t3eN -u root td_now < reg_state_affil.sql >> OUT/reg_all.tsv
+

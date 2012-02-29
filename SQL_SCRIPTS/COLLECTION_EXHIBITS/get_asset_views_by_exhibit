@@ -1,0 +1,28 @@
+use td_analytics
+
+CREATE TEMPORARY TABLE temp_exhibit_members
+SELECT a.code asset_code, r.code resource_code, h.code hierarchy_code, h.name hierarchy_name
+FROM td_now.asset a, td_now.learning_object_asset_link ra, td_now.resource r,
+   td_now.hierarchy h, td_now.hierarchy_link l, td_now.hierarchy_element he
+WHERE a.code = ra.asset_code
+AND ra.resource_id = r.id
+AND l.resource_code = r.code
+AND l.hierarchy_element_id = he.id
+AND he.hierarchy_id = h.id;
+
+CREATE INDEX by_asset ON temp_exhibit_members (asset_code);
+CREATE INDEX by_hierarchy ON temp_exhibit_members (hierarchy_code);
+CREATE INDEX by_resource ON temp_exhibit_members (resource_code);
+
+CREATE TEMPORARY TABLE temp_asset_views
+SELECT z.month, COUNT(m.id) hits, 
+	SUBSTRING_INDEX(SUBSTRING_INDEX(m.url_path,'/', 3), '/', -1) asset_code
+FROM metrics_page_hits m, metrics_month_id_range z
+WHERE m.page_type IN ('asset_view', 'user_media_view')
+AND m.id BETWEEN z.low AND z.high
+GROUP BY z.month, asset_code;
+
+SELECT t2.month, SUM(t2.hits), t1.hierarchy_code, t1.hierarchy_name
+FROM temp_exhibit_members t1, temp_asset_views t2
+WHERE t1.asset_code = t2.asset_code
+GROUP BY t2.month, t1.hierarchy_code;

@@ -1,0 +1,8 @@
+USE td_now;
+
+SELECT c.code, c.title, p.code partner, COUNT(r.collection_id) resources
+FROM collection c, resource r, partner p
+WHERE c.id = r.collection_id
+AND c.partner_id = p.id
+GROUP BY c.id
+ORDER BY c.code;

@@ -1,1 +1,3 @@
 DATA/*
+*.tsv
+SQL_SCRIPTS/*/OUT

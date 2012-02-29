@@ -1,0 +1,10 @@
+use td_analytics
+
+SELECT 'download', z.month, c.code, COUNT(m.id) all_views
+FROM metrics_page_hits m, td_now.asset r, td_now.collection c, metrics_month_id_range z
+WHERE r.collection_id = c.id
+AND m.page_type IN ('asset_download_complete', 'user_media_download')
+AND r.code = SUBSTRING_INDEX(SUBSTRING_INDEX(m.url_path,'/', 3), '/', -1)
+AND m.id BETWEEN z.low AND z.high
+AND z.month = '2012-01'
+GROUP BY c.code, z.month;

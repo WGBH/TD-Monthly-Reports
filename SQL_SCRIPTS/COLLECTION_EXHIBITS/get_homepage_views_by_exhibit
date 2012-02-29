@@ -1,0 +1,42 @@
+
+
+NEED TO DO THIS
+
+select count(m.id), z.month, SUBSTRING_INDEX(SUBSTRING_INDEX(m.url_path, '/', -2), '/', 1) x
+From metrics_page_hits m, metrics_month_id_range z
+where page_type = 'special_collection'
+AND m.id BETWEEN z.low AND z.high
+group by x, z.month
+
+
+use td_analytics
+
+CREATE TEMPORARY TABLE temp_exhibit_members
+SELECT a.code asset_code, r.code resource_code, h.code hierarchy_code, h.name hierarchy_name
+FROM td_now.asset a, td_now.learning_object_asset_link ra, td_now.resource r,
+   td_now.hierarchy h, td_now.hierarchy_link l, td_now.hierarchy_element he
+WHERE a.code = ra.asset_code
+AND ra.resource_id = r.id
+AND l.resource_code = r.code
+AND l.hierarchy_element_id = he.id
+AND he.hierarchy_id = h.id;
+
+CREATE INDEX by_asset ON temp_exhibit_members (asset_code);
+CREATE INDEX by_hierarchy ON temp_exhibit_members (hierarchy_code);
+CREATE INDEX by_resource ON temp_exhibit_members (resource_code);
+
+CREATE TEMPORARY TABLE temp_resource_views
+SELECT z.month, COUNT(m.id) hits, 
+	SUBSTRING_INDEX(SUBSTRING_INDEX(m.url_path,'/', 3), '/', -1) resource_code
+FROM metrics_page_hits m, metrics_month_id_range z
+WHERE m.page_type IN 
+	('building_block','learning_object','lesson_plan','student_activity','teacher_activity')
+AND m.id BETWEEN z.low AND z.high
+GROUP BY z.month, resource_code;
+
+CREATE INDEX by_resource ON temp_resource_views (resource_code);
+
+SELECT t2.month, SUM(t2.hits), t1.hierarchy_code, t1.hierarchy_name
+FROM temp_exhibit_members t1, temp_resource_views t2
+WHERE t1.resource_code = t2.resource_code
+GROUP BY t2.month, t1.hierarchy_code;

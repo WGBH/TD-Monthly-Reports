@@ -1,0 +1,2 @@
+mysql -pbL1t3eN -u admin td_analytics < visit_loginA.sql > OUT/access_201110.tsv
+mysql -pbL1t3eN -u admin td_analytics < visit_loginB.sql >> OUT/access_201110.tsv

@@ -1,0 +1,12 @@
+Did you update the metrics_month_id_range table?
+
+ALSO - make sure that the resource and asset tables have UNIQUE INDEXES on code.
+For some reason the Django model didn't take care of this..
+
+CREATE UNIQUE INDEX by_code ON td_now.asset(code);
+CREATE UNIQUE INDEX by_code ON td_now.resource(code);
+
+
+Otherwise I'll never finish!
+
+

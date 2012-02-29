@@ -1,0 +1,3 @@
+mysql -pbL1t3eN -u admin td_now < get_asset_views_by_exhibit > OUT/asset_views_by_exhibit.tsv
+mysql -pbL1t3eN -u admin td_now < get_downloads_by_exhibit > OUT/downloads_by_exhibit.tsv
+mysql -pbL1t3eN -u admin td_now < get_resource_views_by_exhibit > OUT/resource_views_by_exhibit.tsv

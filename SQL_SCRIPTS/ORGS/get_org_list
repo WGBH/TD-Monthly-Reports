@@ -1,0 +1,32 @@
+USE td_now
+
+CREATE TEMPORARY TABLE users_by_org
+SELECT COUNT(u.id) users, o.id org_id, o.nces_id, o.state_region
+FROM tduser u, org o
+WHERE u.org_id = o.id
+AND o.status = 'on'
+AND o.country_code = 'us'
+AND LEFT(o.org_type, 3) = 'k12'
+GROUP BY o.id;
+
+CREATE INDEX by_nces ON users_by_org (nces_id);
+
+USE nces
+
+SELECT u.org_id, s.nces_id, s.name, x.address, x.city, x.state, x.zip, 
+	s.lea_code district_code, d.name district,
+	SUM(u.users) n_users, c.name,
+	m.locale, m.grades, IF(m.is_public, 'Public', 'Private') type,   
+	m.enrollment, m.fte, IF(m.is_title1, 'Yes', 'No') title_1,  
+	IF(m.enrollment, ROUND(100.*lunch_total/m.enrollment,1), '') red_lunch  
+FROM school s, school_location x, school_metadata m, 
+	td_now.users_by_org u, county c, district d
+WHERE x.nces_id = s.nces_id  
+AND s.nces_id = u.nces_id 
+AND x.nces_id = m.nces_id 
+AND x.state = u.state_region 
+AND x.state = u.state_region
+AND s.county_code = c.code
+AND s.lea_code = d.code
+GROUP BY s.nces_id
+

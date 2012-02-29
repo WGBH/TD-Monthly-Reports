@@ -1,0 +1,1 @@
+mysql -pbL1t3eN -u admin td_now < get_org_list > OUT/org_all.tsv

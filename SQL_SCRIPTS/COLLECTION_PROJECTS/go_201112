@@ -1,0 +1,7 @@
+#!/bin/sh
+mysql -pbL1t3eN -u root td_analytics < get_collection_list > OUT/collection_list.tsv
+
+mysql -pbL1t3eN -u root td_analytics < get_asset_views_by_collection > OUT/collection_201112.tsv
+mysql -pbL1t3eN -u root td_analytics < get_downloads_by_collection >> OUT/collection_201112.tsv
+mysql -pbL1t3eN -u root td_analytics < get_resource_views_by_collection >> OUT/collection_201112.tsv
+

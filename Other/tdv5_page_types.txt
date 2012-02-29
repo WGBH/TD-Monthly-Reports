@@ -1,0 +1,401 @@
+
+==================================================================================================
+Type: about
+Order: OTHER
+Cases: 62+
+Paths: 
+	a) collection_credits     /collection_credits/"collection_code"{0,1}
+	b) general pages          /[\w+].html
+	c) licenses               /licenses/"license_type"
+	d) other                  LIST FOLLOWS
+		/translate_c
+		/search
+		/special/biot
+
+==================================================================================================	
+Type: all_collections_listing
+Order: NAVIGATION
+Cases: 2
+Paths:
+	/special_collections/
+	/special_collections_cms/  --- ???!
+	
+
+==================================================================================================	
+Type: asn_search
+Order: NAVIGATION
+Cases: 16+
+Paths:
+	/list_resource_by_asnstatement/"asn_ID"
+	
+==================================================================================================	
+Type: asset_download_complete
+Order: OPERATION
+Cases: 1,168+
+
+Paths:
+	/oer_download_do/"asset_code"
+	/oer_download_do_no_login/"asset_code"
+	
+==================================================================================================	
+Type: asset_download_error
+Order: DIAGNOSTIC
+Cases: 47+
+
+Paths: 
+	/oer_download_do/"asset_code"           make oer_download_err
+	/oer_download_do_no_login/"asset_code"  make oer_download_err_no_login
+	
+==================================================================================================
+Type: asset_download_view_license
+Order: OPERATION
+Cases: 1,215+
+
+Paths:
+	/oer_download/"asset_code"              make oer_download_view
+	/oer_download_no_login/"asset_code"     make oer_download_view_no_login
+	
+==================================================================================================
+Type: asset_view
+Order: MEDIA
+Cases: 4,490+
+
+Paths: 
+	/asset/"asset_code"
+	
+	* several others which appear to be errors (should be 404?)
+		/[A-Z]:(\Path)?
+		/do$
+		/home
+		/Network
+		/proxy.ashx
+		/resource  --- ???
+		/search --- ???
+		/translate_c 
+		/Users
+		/Volumes
+		file:/
+		http:/
+		
+==================================================================================================
+Type: building_block
+Order: CONTENT
+Cases: 71+
+Paths:
+	/resource/"resource_code"
+	
+	This is a subtype of learning object.
+	
+==================================================================================================
+Type: error
+Order: DIAGNOSTIC
+Cases: 1+
+Paths:
+	/folder/view/"folder_id"
+	
+	Presumably there would be other paths...
+	
+==================================================================================================
+Type: error_404
+Order: DIAGNOSTIC
+Cases: 3,096+
+
+Paths:
+	(/.*)+
+	
+==================================================================================================
+Type: error_500
+Order: DIAGNOSTIC
+Cases: 24+
+
+Paths:
+	Presumably (/.*)+  though most look like 404s (/sci/foo) from v4 URLs...
+	
+==================================================================================================
+Type: folder
+Order: OPERATION though MIGHT BE NAVIGATION
+Cases: 4,913+
+
+Paths: 
+	/folder/view/"folder_id"
+	/H:/Desktop/...  this should be a 404
+	
+	I need to figure out where the folder OPERATIONS are?
+	
+==================================================================================================
+Type: glossary_popup
+Order: CONTENT
+Cases: 208+
+
+Paths:
+	/glossary/"term"
+	
+==================================================================================================
+Type: group
+Order: OPERATION (might be NAVIGATION)?
+Cases: 288+
+
+Paths:
+	/group/view/"group_id"
+	
+	I need to figure out where the group OPERATIONS are?
+	
+==================================================================================================
+Type: group_error
+Order: DIAGNOSTIC
+Cases: 52
+
+Paths:
+	/group/view/"group_id"     make /group/view_err/"group_id" ???
+	
+==================================================================================================
+Type: hbrowse
+Order: NAVIGATION
+Cases: Many
+
+Paths:
+	/collection(/hierarchy_subcode)+
+	/collection_cms(/hierarchy_subcode)+
+	/search  --- 404?
+	/translate_c --- 404?
+	
+	Need to sort out depth.
+	
+==================================================================================================
+Type: learning_object
+Order: CONTENT
+Cases: Many
+
+Paths:
+	/resource/"resource_code"  appears to be the only legitimate one
+	
+	These appear to be 404s, but I don't understand /search or /translate_c there...
+	/[A-Z]:(.*)
+	/0734
+	/babelfish
+	/file
+	/Home$
+	/Network
+	/resources
+	/search  --- ???
+	/SHARE
+	/Staff$
+	/teacher$
+	/Translate
+	/translate_c --- ???
+	/url_result
+	/UserData
+	/users
+	/Volumes
+	/_
+	blank
+	file:/
+	resource (no leading /)
+	
+==================================================================================================
+Type: lesson_plan
+Order: CONTENT
+Cases: Many
+
+Paths: same as "learning_object"
+
+==================================================================================================
+Type: login
+Order: OPERATION
+Cases: 61+
+
+Paths:
+	/login
+	/login/"affiliate_code"
+	/lost_pass
+	/lost_pass/"affiliate_code"
+	
+	Check w/ Joe about this... :-)
+	
+==================================================================================================
+Type: login_change_org
+Order: OPERATION
+Cases: 16+
+
+Paths:
+	/login_change_org(/"affiliate_code")?
+	
+==================================================================================================
+Type: lost_password
+Order: OPERATION
+Cases: 33+
+
+Paths:
+	/lost_pass(/"affiliate_code")?
+	
+	Not sure how this is different from the one in /login   ???
+	
+==================================================================================================
+Type: lost_password_reset
+Order: OPERATION
+Cases: 1,141+
+
+Paths:
+	/reset_tduser    No other metadata?!
+	
+==================================================================================================
+Type: media_enclosure
+Order: MEDIA ???
+Cases: 72+
+
+Paths:
+	/asset/"asset_code"/
+	
+	I have no idea what this is.  :-)
+	
+==================================================================================================
+Type: media_upload
+Order: OPERATION
+Cases: 384+
+
+Paths:
+	/media_upload/   No other metadata?!
+	
+==================================================================================================
+Type: my_upload_view
+Order: OPERATION?  MEDIA?
+Cases: 9+
+
+Paths:
+	/my_uploads/view/"upload_id"  Need to verify what the ID is here...
+	
+==================================================================================================
+Type: null
+Order: OTHER?
+Cases: 69+?
+
+Paths:
+	/
+	
+	Que?
+	
+==================================================================================================
+Type: pd_course
+Order: CONTENT
+Cases: 37+
+
+Paths:
+	/resource/"course_code"   actually  /resource/tdpd."course_code"
+	
+	Also: /search and /translate_c -- 404s?
+	
+	Why /resource/ and not /pd_course/ ???
+	
+==================================================================================================
+Type: profile
+Order: OPERATION
+Cases: 1
+
+Paths:
+	/profile/
+	
+	Is this view profile --- what about profile operations?
+	
+==================================================================================================
+Type: register
+Order: OPERATION
+Cases: 28+
+
+Paths:
+	/register/
+	/register/"affiliate_code"
+	
+	404: /translate_c
+
+	No way to track fallout?
+	
+==================================================================================================
+Type: search
+Order: OPERATION
+Cases: 4
+
+Paths:
+	/search/
+	/nsdl_search/
+	/browse/   --- different than hbrowse?
+	
+	lots of Windows file-like paths that are prob. 404s  (/[A-Z]:/.*)
+	/proxy.ashx
+	/translate_c
+	/Users/*
+	
+==================================================================================================
+Type: special_collection
+Order: NAVIGATION
+Cases: 316+
+
+Paths:
+	/special/"collection_code"/                  
+	/special/"collection_code"/"collection_page_code"
+	
+	Same sort of 404s (translate_c  search  etc.)
+	
+==================================================================================================
+Type: student_activity
+Order: CONTENT
+Cases: 23+
+
+Paths: 
+	/resource/"resource_code"
+	
+	/search - 404?
+	/translate_c - 404?
+	
+==================================================================================================
+Type: tdhom
+Order: UNKNOWN
+Cases: 1
+
+Paths:
+	/   --- same as null?   Huh?
+	
+==================================================================================================
+Type: tdhome
+Order: NAVIGATION
+Cases: 1
+
+Paths:
+	/   --- same as null? 
+	
+	404's?
+	 
+	lots of /[A-Z]:
+	/proxy
+	/proxy.ashx
+	/search
+	/tdhome/
+	/translate_c
+	/Volumes
+	
+	The TD Home page
+	
+==================================================================================================
+Type: user_media_download
+Order: OPERATION
+Cases: 23+
+
+Paths:
+	/umdownload/"user_media_id"
+	
+==================================================================================================
+Type: user_media_view
+Order: MEDIA
+Cases: 18+
+
+Paths: /umedia/"user_media_id"
+
+	Looks like 2 are /umdownload/ --- bad reference?
+	
+==================================================================================================
+Type: user_media_enclosure
+Order: MEDIA
+Cases: 1
+
+	/umedia/"user_media_code"
+	
+	_

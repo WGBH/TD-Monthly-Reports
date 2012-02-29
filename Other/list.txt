@@ -1,0 +1,57 @@
+
+REPORT  1:  The content catalog
+
+    This is simple and straightforward.   It's two sheet spreadsheet:
+
+        SHEET 1: Resources (with metadata:  type, code, name, etc.)
+        SHEET 2: Assets (with metadata: type, code, etc.)
+
+    We only need to create this once, and send it to each recipient who requests it.
+
+REPORT 2: Orgs
+
+    This is a two sheet spreadsheet:
+
+        SHEET 1: Overall metrics:   penetration (public vs. private and combined)  for the state and US.
+            (I could also make this with all the states on it and include it in REPORT 1)
+
+        SHEET 2: List of Orgs in the state with NCES demographics, Title 1 data, # users, etc.
+
+REPORT 3: Registration, Visits, Logins
+
+    For V5 onwards, I'd like to delineate LOGIN from VISIT:
+
+            - LOGIN – by a registrered user – location from ORG metadata
+            - VISIT – by ANY visitor (incl. logins and non-logged in visits) - location from GeoIP
+
+            So there are three primary metrics:
+                - registration
+                - logins
+                - visits
+
+        For each state report, there's:
+                    State data
+                    US data
+                    Affiliate data
+                    County data (not on list, but something a partner might want – we should be prepared)
+
+        This is a four sheet spreadsheet:
+
+            SHEET 1: Roll-up by  state, US, world?  Affiliate,  county?
+            SHEET 2: Registration  (US/ World, State, Affiliate)   by month, cum.
+            SHEET 3: Logins (ditto)
+            SHEET 4: visits (ditto)
+
+REPORT 4:  Content Usage
+
+        I think this is 5 sheets
+
+        SHEET 1: Top 100   resource views, asset views, downloads (for the state), might also reference those against US ranking for the month?
+        SHEET 2: Resource Views:  state, US, world   BASED ON VISITS, NOT LOGINS
+        SHEET 3: Asset Views: ditto BASED ON VISITS, NOT LOGINS
+        SHEET 4: Downloads: ditto BASED ON VISITS, NOT LOGINS
+        SHEET 5: Collections:  List by collection, total asset views, resource views, downloads, home page views  (state, US, world?) BASED ON VISITS, NOT LOGINS
+
+    NOTE That cumulative reports will have to be V5 ONLY OR we'll have to lookup every visit back to 2002 (and I'm not sure how to get accurate data
+        for those earlier months!).  OR we can make the partner responsible for cumulation on their own (my preference).
+
